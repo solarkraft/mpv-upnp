@@ -47,21 +47,22 @@ device_uuid = uuid.uuid4()
 local_ip_address = get_network_interface_ip_address(NETWORK_INTERFACE)
 
 http_server = UPNPHTTPServer(8088,
-                             friendly_name="Jambon 3000",
-                             manufacturer="Boucherie numérique SAS",
-                             manufacturer_url='http://www.boucherie.example.com/',
-                             model_description='Jambon Appliance 3000',
-                             model_name="Jambon",
-                             model_number="3000",
-                             model_url="http://www.boucherie.example.com/en/prducts/jambon-3000/",
-                             serial_number="JBN425133",
-                             uuid=device_uuid,
-                             presentation_url="http://{}:5000/".format(local_ip_address))
+    friendly_name="MPV Renderer",
+    manufacturer="solarkraft",
+    manufacturer_url='http://github.com/solarkraft/mpv-upnp/',
+    model_description='Renders through MPV. ',
+    model_name="MPV",
+    model_number="1",
+    model_url="http://github.com/solarkraft/mpv-upnp/",
+    serial_number="1",
+    uuid=device_uuid,
+    presentation_url="http://{}:5000/".format(local_ip_address))
 http_server.start()
 
 ssdp = SSDPServer()
-ssdp.register('local',
-              'uuid:{}::upnp:rootdevice'.format(device_uuid),
-              'upnp:rootdevice',
-              'http://{}:8088/jambon-3000.xml'.format(local_ip_address))
+ssdp.register(
+    'local',
+    'uuid:{}::upnp:rootdevice'.format(device_uuid),
+    'upnp:rootdevice',
+    'http://{}:8088/device.xml'.format(local_ip_address))
 ssdp.run()
