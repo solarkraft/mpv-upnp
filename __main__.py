@@ -5,7 +5,7 @@ import netifaces as ni
 from time import sleep
 import logging
 
-NETWORK_INTERFACE = 'em0'
+NETWORK_INTERFACE = 'wlp1s0'
 
 logger = logging.getLogger()
 logger.setLevel(logging.DEBUG)
